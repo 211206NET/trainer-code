@@ -1,0 +1,5 @@
+Hello World!
+This is how you type in vim
+First, you have to press 'i' to enter "insert" mode
+And then once you're satisfied with what you wanna say
+You can leave the insert mode by pressing ESC
