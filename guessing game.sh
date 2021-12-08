@@ -70,5 +70,5 @@ done
 
 if [ $randomNum = $number ]
 then
-    echo "Congratulations! You got the number it took you $try1 many tries!"
+    echo "Congratulations! You got the number it took you $try many tries!"
 fi
