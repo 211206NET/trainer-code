@@ -7,7 +7,7 @@
 # tell how far using hot, cold, warm
 #tell them how many times they tri
 
- try=0 
+init -1 try=0 
 
 randomNum=$(($RANDOM % 100))
 
@@ -27,7 +27,7 @@ then
 fi
 while [ $number != $randomNum ]
 do
-    try=try+1
+    try1=try+1
     if [ $number -gt $randomNum ]
     then
             echo " $number is greater than the number." 
