@@ -20,10 +20,10 @@ echo "You typed $word"
 echo "Do you want to say some more?"
 read answer
 
-# creating this variable, and initially assign it to false
-exit=false
+# # creating this variable, and initially assign it to false
+# exit=false
 
-while [ $exit = false ]
+while [ true ]
 do
     # if answer variable is 'y' then execute the following block
     if [ $answer = 'y' ]
@@ -34,11 +34,11 @@ do
         echo "Continue speaking?"
         read answer
     # != compares two strings for inequality 
-    if [ $answer != 'y' ]
-    then
-        echo "goodbye!"
-        break
-    fi
+        if [ $answer != 'y' ]
+        then
+            echo "goodbye!"
+            break
+        fi
     # elif [ condition ]
     # then
     #     whatever you want to execute here
