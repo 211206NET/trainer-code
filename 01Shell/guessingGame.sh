@@ -6,7 +6,7 @@
 # Expected Behavior
 # First, generate a random number
 # ask user for a guess
-# tell them whether they were over or under and how far off they were
+# tell them whether they were over or under
 # also tell them how many times they've tried so far
 
 
