@@ -5,7 +5,7 @@
 # ask user for a guess
 # tell if they were under or over
 # tell how far using hot, cold, warm
-#tell them how many times they tri
+#tell them how many times they try
 
 try=0 
 
@@ -70,5 +70,5 @@ done
 
 if [ $randomNum = $number ]
 then
-    echo "Congratulations! You got the number it took you $try many tries!"
+    echo "Congratulations! You got the number it took you $try tries!"
 fi
