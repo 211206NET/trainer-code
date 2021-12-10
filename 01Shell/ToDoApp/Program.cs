@@ -49,15 +49,30 @@ do
         break;
         case "3":
             Console.WriteLine("Choose an item to complete");
+            //First, we're iterating through the list to display each listitem
+            //and its index (where they're located in the list)
+            //This index for item does not change
+            //so we can take advantage of that fact and 
+            //precisely locate the item
+            //Count is a property of generic collection List<T>
+            //where it returns the number of current items in the list
             for(int i = 0; i < toDoList.Count; i++)
             {
                 Console.WriteLine($"[{i}] {toDoList[i].Print()}");
                 // Console.WriteLine("[{0}] {1}", i, toDoList[i].Print());
             }
+
+            //Take in the user input and naively assume that users know what they are doing
+            //and parse it to integer so we can access the item by its index
             int selection = int.Parse(Console.ReadLine());
 
+            //We found the item that the user wanted to complete
             ToDoItem itemToComplete = toDoList[selection];
+
+            //we called the complete item method that marks IsDone property to true
             itemToComplete.CompleteItem();
+
+            //Confirmation message
             Console.WriteLine($"You completed {itemToComplete.Print()}");
         break;
         case "x":
