@@ -35,6 +35,6 @@ public class ToDoItem {
         // return "Done: " + this.IsDone + " Note: " + this.Note;
 
         //String Interpolation
-        return $"Done: {this.IsDone} Note: {this.Note}";
+        return $"Note: {this.Note} Done: {this.IsDone}";
     }
 }
