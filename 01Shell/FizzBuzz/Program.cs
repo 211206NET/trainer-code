@@ -27,7 +27,7 @@ int number = 0;
 do
 {
     Console.WriteLine("Enter a positive number");
-    input = Console.ReadLine();
+    input = Console.ReadLine() ?? "0";
     number = int.Parse(input);
 
     if(number <= 0)
