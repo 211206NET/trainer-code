@@ -41,13 +41,24 @@ do
             Console.WriteLine(newItem.Print());
         break;
         case "2":
+            //foreach loop loops through items in a collection
             foreach(ToDoItem item in toDoList)
             {
                 Console.WriteLine(item.Print());
             }
         break;
         case "3":
-            Console.WriteLine("Completing an item");
+            Console.WriteLine("Choose an item to complete");
+            for(int i = 0; i < toDoList.Count; i++)
+            {
+                Console.WriteLine($"[{i}] {toDoList[i].Print()}");
+                // Console.WriteLine("[{0}] {1}", i, toDoList[i].Print());
+            }
+            int selection = int.Parse(Console.ReadLine());
+
+            ToDoItem itemToComplete = toDoList[selection];
+            itemToComplete.CompleteItem();
+            Console.WriteLine($"You completed {itemToComplete.Print()}");
         break;
         case "x":
             Console.WriteLine("Goodbye!");

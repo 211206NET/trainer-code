@@ -12,7 +12,9 @@ namespace ToDo;
 // public means that any and everyone can access this class
 public class ToDoItem {
     //Empty Constructor
-    public ToDoItem() {}
+    public ToDoItem() {
+        // this.IsDone = false;
+    }
 
     //This is a field
     // public bool Done;
