@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 
 bool exit = false;
+//Instantiating our list of todoItems
+List<ToDoItem> toDoList = new List<ToDoItem>();
 do
 {
-    //Instantiating our list of todoItems
-    List<ToDoItem> toDoList = new List<ToDoItem>();
-
     Console.WriteLine("Welcome to ToDo List");
     Console.WriteLine("What would you like to do today?");
     Console.WriteLine("1: Create a new todo item");
@@ -37,11 +36,15 @@ do
             newItem.IsDone = false;
             newItem.Note = newNote;
 
+            toDoList.Add(newItem);
             Console.WriteLine("You created the following item: ");
             Console.WriteLine(newItem.Print());
         break;
         case "2":
-            Console.WriteLine("Viewing my todo list");
+            foreach(ToDoItem item in toDoList)
+            {
+                Console.WriteLine(item.Print());
+            }
         break;
         case "3":
             Console.WriteLine("Completing an item");
