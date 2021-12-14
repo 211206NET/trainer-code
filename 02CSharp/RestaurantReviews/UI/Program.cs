@@ -1,5 +1,4 @@
-﻿using Models;
-using UI;
+﻿using UI;
 
 MainMenu menu = new MainMenu();
 menu.Start();

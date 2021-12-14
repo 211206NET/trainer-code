@@ -1,9 +1,15 @@
 using Models;
-using DL;
+using BL;
 
 namespace UI;
 
 public class MainMenu {
+    private RRBL _bl;
+
+    public MainMenu()
+    {
+        _bl = new RRBL();
+    }
     public void Start() {
         bool exit = false;
         Console.WriteLine("Welcome to Restaurant Reviews!");
@@ -42,11 +48,11 @@ public class MainMenu {
                         State = state
                     };
 
-                    StaticStorage.AddRestaurant(newRestaurant);
+                    _bl.AddRestaurant(newRestaurant);
                 break;
                 case "2":
                     Console.WriteLine("Here are all your restaurants!");
-                    foreach(Restaurant resto in StaticStorage.GetAllRestaurants())
+                    foreach(Restaurant resto in _bl.GetAllRestaurants())
                     {
                         Console.WriteLine($"Name: {resto.Name} \nCity: {resto.City} \nState: {resto.State}");
                         Console.WriteLine("======Reviews======");
@@ -57,7 +63,7 @@ public class MainMenu {
                     }
                 break;
                 case "3":
-                    List<Restaurant> allRestaurants = StaticStorage.GetAllRestaurants();
+                    List<Restaurant> allRestaurants = _bl.GetAllRestaurants();
                     Console.WriteLine("Select a restaurant to leave reviews for");
                     for(int i = 0; i < allRestaurants.Count; i++)
                     {
@@ -73,7 +79,7 @@ public class MainMenu {
 
                     Review newReview = new Review(rating, note);
 
-                    StaticStorage.AddReview(selection, newReview);
+                    _bl.AddReview(selection, newReview);
                     Console.WriteLine("Your review has been successfully added!");
                 break;
                 case "x":
