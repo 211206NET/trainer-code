@@ -70,6 +70,7 @@ public class FileRepo
         List<Restaurant> allRestaurants = GetAllRestaurants();
 
         Restaurant selectedRestaurant = allRestaurants[restaurantIndex];
+        
         if(selectedRestaurant.Reviews == null)
         {
             selectedRestaurant.Reviews = new List<Review>();

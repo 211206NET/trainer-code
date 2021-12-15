@@ -12,11 +12,11 @@ public class Restaurant {
 
     public Restaurant()
     {
-        // this.Reviews = new List<Review>();
+        this.Reviews = new List<Review>();
     }
     public Restaurant(string name)
     {
-        // this.Reviews = new List<Review>();
+        this.Reviews = new List<Review>();
         this.Name = name;
     }
     public string Name { get; set; }
