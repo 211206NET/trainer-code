@@ -1,8 +1,4 @@
-using Models;
-using BL;
-
 namespace UI;
-
 public class MainMenu {
     private RRBL _bl;
 
@@ -17,52 +13,17 @@ public class MainMenu {
         while(!exit)
         {
             Console.WriteLine("What would you like to do today?");
-            Console.WriteLine("1. Create a new Restaurant");
-            Console.WriteLine("2. View All Restaurant");
-            Console.WriteLine("3. Leave a review");
-            Console.WriteLine("x. Exit");
+            Console.WriteLine("[1] Manage Restaurant");
+            Console.WriteLine("[2] Leave a review");
+            Console.WriteLine("[x] Exit");
             string input = Console.ReadLine();
 
             switch (input)
             {
                 case "1":
-                    Console.WriteLine("Create a new restaurant:");
-                    Console.WriteLine("Name: ");
-                    string name = Console.ReadLine();
-                    Console.WriteLine("City: ");
-                    string city = Console.ReadLine();
-                    Console.WriteLine("State: ");
-                    string state = Console.ReadLine();
-
-                    //Initializing the class using empty constructor
-                    // Restaurant newRestaurant = new Restaurant();
-                    // newRestaurant.Name = name;
-                    // newRestaurant.City = city;
-                    // newRestaurant.State = state;
-
-                    //another way to initialize a class
-                    //using object initializer
-                    Restaurant newRestaurant = new Restaurant {
-                        Name = name,
-                        City = city,
-                        State = state
-                    };
-
-                    _bl.AddRestaurant(newRestaurant);
+                    new RestaurantMenu().Start();
                 break;
                 case "2":
-                    Console.WriteLine("Here are all your restaurants!");
-                    foreach(Restaurant resto in _bl.GetAllRestaurants())
-                    {
-                        Console.WriteLine($"Name: {resto.Name} \nCity: {resto.City} \nState: {resto.State}");
-                        Console.WriteLine("======Reviews======");
-                        foreach(Review review in resto.Reviews)
-                        {
-                            Console.WriteLine($"Rating: {review.Rating} \t Note: {review.Note}");
-                        }
-                    }
-                break;
-                case "3":
                     List<Restaurant> allRestaurants = _bl.GetAllRestaurants();
                     Console.WriteLine("Select a restaurant to leave reviews for");
                     for(int i = 0; i < allRestaurants.Count; i++)
