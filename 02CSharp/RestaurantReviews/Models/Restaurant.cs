@@ -12,11 +12,11 @@ public class Restaurant {
 
     public Restaurant()
     {
-        this.Reviews = new List<Review>();
+        // this.Reviews = new List<Review>();
     }
     public Restaurant(string name)
     {
-        this.Reviews = new List<Review>();
+        // this.Reviews = new List<Review>();
         this.Name = name;
     }
     public string Name { get; set; }
@@ -41,5 +41,5 @@ public class Restaurant {
 
     public string City { get; set; }
     public string State { get; set; }
-    public List<Review> Reviews { get; }
+    public List<Review> Reviews { get; set; }
 }

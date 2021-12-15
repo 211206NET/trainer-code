@@ -18,10 +18,7 @@ public class FileRepo
     {
         string jsonString = File.ReadAllText(filePath);
 
-        Console.WriteLine(jsonString);
-        List<Restaurant> allRestaurants = JsonSerializer.Deserialize<List<Restaurant>>(jsonString);
-
-        return allRestaurants;
+        return JsonSerializer.Deserialize<List<Restaurant>>(jsonString);
     }
 
     /// <summary>
@@ -72,7 +69,12 @@ public class FileRepo
 
         List<Restaurant> allRestaurants = GetAllRestaurants();
 
-        allRestaurants[restaurantIndex].Reviews.Add(reviewToAdd);
+        Restaurant selectedRestaurant = allRestaurants[restaurantIndex];
+        if(selectedRestaurant.Reviews == null)
+        {
+            selectedRestaurant.Reviews = new List<Review>();
+        }
+        selectedRestaurant.Reviews.Add(reviewToAdd);
 
         string jsonString = JsonSerializer.Serialize(allRestaurants);
         File.WriteAllText(filePath, jsonString);
