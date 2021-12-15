@@ -62,6 +62,7 @@ public class RestaurantMenu
                         foreach(Restaurant resto in allRestaurants)
                         {
                             Console.WriteLine($"Name: {resto.Name} \nCity: {resto.City} \nState: {resto.State}");
+                            Console.WriteLine(resto.Reviews.Count);
                             if(resto.Reviews.Count > 0)
                             {
                                 Console.WriteLine("======Reviews======");

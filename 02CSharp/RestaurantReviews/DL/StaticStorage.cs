@@ -1,6 +1,4 @@
-﻿using Models;
-
-namespace DL;
+﻿namespace DL;
 public static class StaticStorage
 {
     private static List<Restaurant> _allRestaurants = new List<Restaurant>();
