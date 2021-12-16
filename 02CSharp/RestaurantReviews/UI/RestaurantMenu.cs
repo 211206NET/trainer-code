@@ -1,12 +1,15 @@
+using DL;
+
 namespace UI;
 
 public class RestaurantMenu
 {
-    private RRBL _bl;
+    private IBL _bl;
 
-    public RestaurantMenu() 
+    public RestaurantMenu(IBL bl) 
     {
-        _bl = new RRBL();
+        //example of dependency injection
+        _bl = bl;
     }
     public void Start()
     {

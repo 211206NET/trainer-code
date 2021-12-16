@@ -1,5 +1,5 @@
 ﻿namespace DL;
-public static class StaticStorage
+public class StaticStorage : IRepo
 {
     private static List<Restaurant> _allRestaurants = new List<Restaurant>();
 
@@ -7,7 +7,7 @@ public static class StaticStorage
     /// Returns all restaurants from _allRestaurants List
     /// </summary>
     /// <returns>all restaurants in the list</returns>
-    public static List<Restaurant> GetAllRestaurants()
+    public List<Restaurant> GetAllRestaurants()
     {
         return StaticStorage._allRestaurants;
     }
@@ -16,7 +16,7 @@ public static class StaticStorage
     /// Adds a new restaurant to the list
     /// </summary>
     /// <param name="restaurantToAdd">new restaurant object to add</param>
-    public static void AddRestaurant(Restaurant restaurantToAdd)
+    public void AddRestaurant(Restaurant restaurantToAdd)
     {
         StaticStorage._allRestaurants.Add(restaurantToAdd);
     }
@@ -26,7 +26,7 @@ public static class StaticStorage
     /// </summary>
     /// <param name="restaurantIndex">int, index of the restaurant in the list</param>
     /// <param name="reviewToAdd">Review object to add to the restaurant</param>
-    public static void AddReview(int restaurantIndex, Review reviewToAdd)
+    public void AddReview(int restaurantIndex, Review reviewToAdd)
     {
         StaticStorage._allRestaurants[restaurantIndex].Reviews.Add(reviewToAdd);
 

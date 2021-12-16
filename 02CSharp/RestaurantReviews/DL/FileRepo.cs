@@ -3,7 +3,7 @@ using System.Text.Json;
 namespace DL;
 
 //This class reads and writes to the file
-public class FileRepo
+public class FileRepo : IRepo
 {
     public FileRepo()
     { }

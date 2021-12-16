@@ -1,10 +1,12 @@
+using DL;
+
 namespace UI;
 public class MainMenu {
-    private RRBL _bl;
+    private IBL _bl;
 
-    public MainMenu()
+    public MainMenu(IBL bl)
     {
-        _bl = new RRBL();
+        _bl = bl;
     }
     public void Start() {
         bool exit = false;
@@ -21,7 +23,18 @@ public class MainMenu {
             switch (input)
             {
                 case "1":
-                    new RestaurantMenu().Start();
+                    //This is full dep injection
+                    // new RestaurantMenu(new RRBL(new FileRepo())).Start();
+                    
+                    //Here, I instantiated an implementation of IRepo (FileRepo)
+                    IRepo repo = new FileRepo();
+                    //next, I instantiated RRBL (an implementation of IBL) and then injected IRepo implementation for IBL/RRBL
+                    IBL bl = new RRBL(repo);
+                    //Finally, I instantiate RestaurantMenu that needs an instance that implements Business Logic class
+                    RestaurantMenu restaurantMenu = new RestaurantMenu(bl);
+
+                    //Dep injection is done, everyone has all the things it needs to function, call the start method of the menu.
+                    restaurantMenu.Start();
                 break;
                 case "2":
                     List<Restaurant> allRestaurants = _bl.GetAllRestaurants();

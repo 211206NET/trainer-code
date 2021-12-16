@@ -1,4 +1,9 @@
 ﻿using UI;
+using DL;
 
-MainMenu menu = new MainMenu();
+//Dep Injection
+IRepo repo = new FileRepo();
+RRBL bl = new RRBL(repo);
+MainMenu menu = new MainMenu(bl);
+
 menu.Start();
