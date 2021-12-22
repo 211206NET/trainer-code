@@ -6,26 +6,44 @@ namespace Net5App
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Pick an animal");
-            Console.WriteLine("[0] Auryn the Cat");
-            Console.WriteLine("[1] Penny the Rabbit");
-            string input = Console.ReadLine();
-            IAnimal animal;
-            switch(input)
-            {
-                case "0":
-                    animal = new Auryn();
-                break;
-                case "1":
-                    animal = new Penny();
-                break;
-                default:
-                    animal = new Auryn();
-                break;
-            }
+        //     Console.WriteLine("Pick an animal");
+        //     Console.WriteLine("[0] Auryn the Cat");
+        //     Console.WriteLine("[1] Penny the Rabbit");
+        //     string input = Console.ReadLine();
+        //     IAnimal animal;
+        //     switch(input)
+        //     {
+        //         case "0":
+        //             animal = new Auryn();
+        //         break;
+        //         case "1":
+        //             animal = new Penny();
+        //         break;
+        //         default:
+        //             animal = new Auryn();
+        //         break;
+        //     }
 
-            animal.Eat();
-            animal.Sleep();
+        //     animal.Eat();
+        //     animal.Sleep();
+
+            //covariance
+            Animal auryn = new Cat();
+
+            // IRepo repo = FileRepo();
+
+            // animal.Speak();
+
+            // double pi = 3.14;
+            // Console.WriteLine(pi);
+            // int i = (int) pi;
+            // Console.WriteLine(i);
+
+            // double d = i;
+            // Console.WriteLine(auryn is Animal);
+
+            // Console.WriteLine(typeof(long));
+            // Console.WriteLine(auryn.GetType());
         }
     }
 
@@ -101,4 +119,35 @@ namespace Net5App
             Console.WriteLine("She sometimes scratches all the right things, sometimes all the wrongs things for attention");
         }
     }
+
+
+    public class Animal
+    {
+        public virtual void Speak()
+        {
+            Console.WriteLine("*animal noise*");
+        }
+    }
+
+    public class Cat : Animal
+    {
+        public override void Speak()
+        {
+            Console.WriteLine("mrrrrrrrw");
+        }
+    }
+
+    public class Dog : Animal {
+
+        public override void Speak()
+        {
+            Console.WriteLine("Woof");
+        }
+    }
+
+    public class Rabbit : Animal {}
+
+    public class Ferret : Animal {}
+
+    public class FancyRat : Animal {}
 }
