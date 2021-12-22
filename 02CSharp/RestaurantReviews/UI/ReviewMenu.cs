@@ -59,9 +59,11 @@ public class ReviewMenu : IMenu
             //And we're making sure that our integer is staying within the bounds of our List
             //now I want to collect information about the review
             Console.WriteLine("Give a rating: ");
-            int rating = Int32.Parse(Console.ReadLine());
+            int rating;
+            
+            bool success = Int32.TryParse(Console.ReadLine(), out rating);
             Console.WriteLine("Leave a Review: ");
-            string note = Console.ReadLine();
+            string note = Console.ReadLine() ?? "";
 
             Review newReview = new Review(rating, note);
 

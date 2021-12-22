@@ -16,9 +16,21 @@ public class FileRepo : IRepo
     /// <returns>List of all restaurants</returns>
     public List<Restaurant> GetAllRestaurants()
     {
-        string jsonString = File.ReadAllText(filePath);
+        string jsonString = "";
+        try
+        {
+            jsonString = File.ReadAllText(filePath);
+        }
+        catch(FileNotFoundException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
 
-        return JsonSerializer.Deserialize<List<Restaurant>>(jsonString);
+        return JsonSerializer.Deserialize<List<Restaurant>>(jsonString) ?? new List<Restaurant>();
     }
 
     /// <summary>

@@ -22,17 +22,19 @@ public class RestaurantMenu : IMenu
             Console.WriteLine("[2] View All Restaurants");
             Console.WriteLine("[x] Go Back to Main Menu");
 
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
+            
+            if(!string.IsNullOrWhiteSpace(input))
             switch(input)
             {
                 case "1":
                     Console.WriteLine("Create a new restaurant:");
                     Console.WriteLine("Name: ");
-                    string name = Console.ReadLine();
+                    string name = Console.ReadLine() ?? "";
                     Console.WriteLine("City: ");
-                    string city = Console.ReadLine();
+                    string city = Console.ReadLine() ?? "";
                     Console.WriteLine("State: ");
-                    string state = Console.ReadLine();
+                    string state = Console.ReadLine() ?? "";
 
                     //Initializing the class using empty constructor
                     // Restaurant newRestaurant = new Restaurant();
@@ -67,6 +69,8 @@ public class RestaurantMenu : IMenu
                             Console.WriteLine(resto.ToString());
 
                             if(resto.Reviews != null && resto.Reviews.Count > 0)
+                            //another way to write the above line is...
+                            //if(resto.Reviews?.Count > 0)
                             {
                                 Console.WriteLine("======Reviews======");
                                 foreach(Review review in resto.Reviews)
