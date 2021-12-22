@@ -42,4 +42,9 @@ public class Restaurant {
     public string City { get; set; }
     public string State { get; set; }
     public List<Review> Reviews { get; set; }
+
+    public override string ToString()
+    {
+        return $"Name: {this.Name} \nCity: {this.City} \nState: {this.State}";
+    }
 }

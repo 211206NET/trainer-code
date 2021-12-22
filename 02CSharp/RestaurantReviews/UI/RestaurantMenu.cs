@@ -2,7 +2,7 @@ using DL;
 
 namespace UI;
 
-public class RestaurantMenu
+public class RestaurantMenu : IMenu
 {
     private IBL _bl;
 
@@ -64,13 +64,14 @@ public class RestaurantMenu
                         Console.WriteLine("Here are all your restaurants!");
                         foreach(Restaurant resto in allRestaurants)
                         {
-                            Console.WriteLine($"Name: {resto.Name} \nCity: {resto.City} \nState: {resto.State}");
+                            Console.WriteLine(resto.ToString());
+
                             if(resto.Reviews != null && resto.Reviews.Count > 0)
                             {
                                 Console.WriteLine("======Reviews======");
                                 foreach(Review review in resto.Reviews)
                                 {
-                                    Console.WriteLine($"Rating: {review.Rating} \t Note: {review.Note}");
+                                    Console.WriteLine(review.ToString());
                                 }
                             }
                             else

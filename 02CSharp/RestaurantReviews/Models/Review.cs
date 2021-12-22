@@ -19,4 +19,12 @@ public class Review {
 
     public int Rating { get; set; }
     public string Note { get; set; }
+
+    //override Review's ToString Method for me here
+    //That outputs $"Rating: {review.Rating} \t Note: {review.Note}"
+
+    public override string ToString()
+    {
+        return $"Rating: {this.Rating} \t Note: {this.Note}";
+    }
 }
