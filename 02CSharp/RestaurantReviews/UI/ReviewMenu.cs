@@ -1,3 +1,5 @@
+using CustomExceptions;
+
 namespace UI;
 
 public class ReviewMenu : IMenu
@@ -58,6 +60,7 @@ public class ReviewMenu : IMenu
             //if the parse has been successful, then we know that the selection is integer and TryParse was able to convert the string to int successfully
             //And we're making sure that our integer is staying within the bounds of our List
             //now I want to collect information about the review
+            createReview:
             Console.WriteLine("Give a rating: ");
             int rating;
             
@@ -65,10 +68,18 @@ public class ReviewMenu : IMenu
             Console.WriteLine("Leave a Review: ");
             string note = Console.ReadLine() ?? "";
 
-            Review newReview = new Review(rating, note);
+            try
+            {
+                Review newReview = new Review(rating, note);
+                _bl.AddReview(selection, newReview);
+                Console.WriteLine("Your review has been successfully added!");
+            }
+            catch(InputInvalidException ex)
+            {
+                Console.WriteLine(ex.Message);
+                goto createReview;
+            }
 
-            _bl.AddReview(selection, newReview);
-            Console.WriteLine("Your review has been successfully added!");
         }
     }
 }

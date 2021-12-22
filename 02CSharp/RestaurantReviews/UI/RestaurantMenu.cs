@@ -1,4 +1,4 @@
-using DL;
+using CustomExceptions;
 
 namespace UI;
 
@@ -28,6 +28,7 @@ public class RestaurantMenu : IMenu
             switch(input)
             {
                 case "1":
+                    createRestaurant:
                     Console.WriteLine("Create a new restaurant:");
                     Console.WriteLine("Name: ");
                     string name = Console.ReadLine() ?? "";
@@ -44,13 +45,21 @@ public class RestaurantMenu : IMenu
 
                     //another way to initialize a class
                     //using object initializer
-                    Restaurant newRestaurant = new Restaurant {
-                        Name = name,
-                        City = city,
-                        State = state
-                    };
+                    try
+                    {
+                        Restaurant newRestaurant = new Restaurant {
+                            Name = name,
+                            City = city,
+                            State = state
+                        };
+                        _bl.AddRestaurant(newRestaurant);
+                    }
+                    catch (InputInvalidException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        goto createRestaurant;
+                    }
 
-                    _bl.AddRestaurant(newRestaurant);
                 break;
 
                 case "2":
