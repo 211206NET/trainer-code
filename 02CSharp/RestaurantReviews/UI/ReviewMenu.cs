@@ -79,7 +79,6 @@ public class ReviewMenu : IMenu
                 Console.WriteLine(ex.Message);
                 goto createReview;
             }
-
         }
     }
 }
