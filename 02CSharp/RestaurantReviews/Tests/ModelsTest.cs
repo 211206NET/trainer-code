@@ -81,7 +81,7 @@ public class ModelsTest
         //Arrange: my test restaurant, and my list of reviews
         Restaurant testRestaurant = new Restaurant();
         List<Review> testReviews = new List<Review>();
-        testReviewCount = 0;
+        int testReviewCount = 0;
         
         //Act: setting my reviews list to the restaurant
         testRestaurant.Reviews = testReviews;
@@ -91,3 +91,14 @@ public class ModelsTest
         Assert.Equal(testReviewCount, testRestaurant.Reviews.Count);
     }
 }
+
+/* Code Coverage:
+Code coverage is a metric that quantifies how much of our code base has been
+"covered" by unit tests
+- 3 different metrics that xunit coverlet supports: Line, Branch, Methods
+- Line: how many lines of code has your unit tests testing?
+- Branch: different scenarios that can happen at every decision point
+- Methods: checks individual methods in classes for the coverage
+
+By default, Coverlet (which calculates the code coverage metrics) generates Cobertura file as the coverage report format
+*/
