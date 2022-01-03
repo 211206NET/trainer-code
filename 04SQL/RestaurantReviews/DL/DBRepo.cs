@@ -1,6 +1,8 @@
 using Microsoft.Data.SqlClient;
 //To get the above namespace working, run
 //dotnet add package Microsoft.Data.Sqlclient
+using System.Data;
+//Include this namespace to be able to use DataSet
 namespace DL;
 
 public class DBRepo : IRepo
@@ -21,9 +23,65 @@ public class DBRepo : IRepo
         4. Process the data you get from it to C# object that rest of your app can consume
     */
 
+    //ADO.NET: Disconnected Architecture saves data in memory
+    //in DataSet, that persists outside of connection using DataAdapters
+    //Data Adapters also manage connection for us
+    //So we don't need to connect/disconnect manually
+    //This is useful if you want to do more complex data manipulation
+    //And C,U,D operation (Create, Update, Delete)
+    //In order to work with data adapters,
+    //We first give select statement to data adapter when we first set it up to get the table information and initial dataset
+    //And then we do futher op on those dataset
+    //and call Update method on the adapter.
     public void AddRestaurant(Restaurant restaurantToAdd)
     {
-        throw new NotImplementedException();
+        DataSet restoSet = new DataSet();
+        string selectCmd = "SELECT * FROM Restaurant WHERE Id = -1";
+        using(SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            using(SqlDataAdapter dataAdapter = new SqlDataAdapter(selectCmd, connection))
+            {
+                //DataSet is essentially just a container that holds data in memory
+                //it holds one or more DataTables
+
+                //We can fill that DataSet using SqlDataAdapter.Fill method
+                dataAdapter.Fill(restoSet, "Restaurant");
+
+                DataTable restoTable = restoSet.Tables["Restaurant"];
+                
+                //If you want to get the information on Data you queried when you called Fill method, we can iterate through DataTable.Rows property (has DataRow collection)
+                //If you want info about the column (name, etc), iterate DataTable.Columns (that has DataColumn collection)
+                //run debugger on them or docs/tutorials for more info
+                // foreach(DataRow row in restoTable.Rows)
+                // {
+                //     Console.WriteLine(row["Id"]);
+                // }
+
+                //Generate a new row with the Restaurant Table Schema
+                DataRow newRow = restoTable.NewRow();
+
+                //Fill the new row with the new restaurant information
+                newRow["Name"] = restaurantToAdd.Name;
+                newRow["City"] = restaurantToAdd.City ?? "";
+                newRow["State"] = restaurantToAdd.State ?? "";
+
+                //add the new row to our restaurantTable Rows
+                restoTable.Rows.Add(newRow);
+
+                //We need to set which query to execute for changes
+                //We need to set SqlDataAdapter.InsertCommand to let it know
+                //How to insert the new records it sees in the restoTable
+                string insertCmd = $"INSERT INTO Restaurant (Name, City, State) VALUES ('{restaurantToAdd.Name}', '{restaurantToAdd.City}', '{restaurantToAdd.State}')";
+
+                //We have to tell the data adapter how to insert records (it's not magic)
+                dataAdapter.InsertCommand = new SqlCommand(insertCmd, connection);
+                //SqlDataAdapter.UpdateCommand (for your Put/Update operations)
+                //SqlDataAdapter.DeleteCommand (for your Delete Operations)
+                //Tell the dataAdapter to update the DB with changes
+                dataAdapter.Update(restoTable);
+            }
+        }
+
     }
 
     public void AddReview(int restaurantIndex, Review reviewToAdd)
