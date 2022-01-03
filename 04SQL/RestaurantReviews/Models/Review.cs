@@ -19,6 +19,10 @@ public class Review {
         this.Note = note;
     }
 
+    public int Id { get; set; }
+
+    public int RestaurantId { get; set; }
+
     private int _rating;
     public int Rating
     {

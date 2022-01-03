@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 //dotnet add package Microsoft.Data.Sqlclient
 using System.Data;
 //Include this namespace to be able to use DataSet
+using System.Linq;
 namespace DL;
 
 public class DBRepo : IRepo
@@ -120,43 +121,114 @@ public class DBRepo : IRepo
     public List<Restaurant> GetAllRestaurants()
     {
         List<Restaurant> allRestaurants = new List<Restaurant>();
-        using(SqlConnection connection = new SqlConnection(_connectionString))
+
+        using SqlConnection connection = new SqlConnection(_connectionString);
+        string restoSelect = "Select * From Restaurant";
+        string reviewSelect = "Select * From Review";
+        
+        //A single dataSet to hold all our data
+        DataSet RRSet = new DataSet();
+
+        //Two different adapters for different tables
+        using SqlDataAdapter restoAdapter = new SqlDataAdapter(restoSelect, connection);
+        using SqlDataAdapter reviewAdapter = new SqlDataAdapter(reviewSelect, connection);
+
+        restoAdapter.Fill(RRSet, "Restaurant");
+        reviewAdapter.Fill(RRSet, "Review");
+
+        DataTable? RestaurantTable = RRSet.Tables["Restaurant"];
+        DataTable? ReviewTable = RRSet.Tables["Review"];
+
+        if(RestaurantTable != null && ReviewTable != null)
         {
-            //Opening the connection to DB
-            connection.Open();
-
-            //assembling our query to query the db with
-            string queryTxt = "SELECT * FROM Restaurant";
-            //take the query text and connection we've built, and get ourselves
-            //SqlCommand object that is capable of executing the command
-            //on a particular SQL DB we specify.
-            using(SqlCommand cmd = new SqlCommand(queryTxt, connection))
+            foreach(DataRow row in RestaurantTable.Rows)
             {
-                //Get the result of the command via SqlDataReader
-                //SqlDataReader is part of what we call Connected Architecture
-                //in ADO.NET
-                //Data only exists while the connection is alive
-                //And is not cached in memory
-                //Efficient when working with large dataset because we are not storing all the data in our memory
+                Restaurant resto = new Restaurant();
+                resto.Id = (int) row["Id"];
+                resto.Name = row["Name"].ToString() ?? "";
+                resto.City = row["City"].ToString() ?? "";
+                resto.State = row["State"].ToString() ?? "";
 
-                using(SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while(reader.Read())
-                    {   
-                        Restaurant resto = new Restaurant();
-                        resto.Id = reader.GetInt32(0);
-                        resto.Name = reader.GetString(1);
-                        resto.City = reader.GetString(2);
-                        resto.State = reader.GetString(3);
+                //LINQ: Language Integrated Query
+                //ReviewTable.AsEnumerable() got me IEnumerable<DataRow>
+                //The Where clause/method is filtering for only reviews that has RestaurantId value as the current restaurant's Id
+                //In Select method, we are taking all the data we have in the collection and transforming into some shape. In this case we are taking the datarow and then turning it into Review object (with lambda expression)
+                //After the Select method, we have IEnumerable Collection of Review Objects
+                //But we ultimately want to have a list of Reviews, so we convert IEnumerable to List by using ToList()
+                //Finally, we assign this List<Review> to resto.Reviews
 
-                        allRestaurants.Add(resto);
-                    }
-                }
+                resto.Reviews = ReviewTable.AsEnumerable().Where(r => (int) r["RestaurantId"] == resto.Id).Select(
+                    r =>
+                        new Review {
+                            Id = (int) r["Id"],
+                            RestaurantId = (int) r["RestaurantId"],
+                            Rating = (int) r["Rating"],
+                            Note = r["NOTE"].ToString() ?? ""
+                        }
+                ).ToList();
+
+                // foreach(DataRow reviewRow in ReviewTable.Rows)
+                // {
+                //     if((int) reviewRow["RestaurantId"] == resto.Id)
+                //     {
+                //         Review review = new Review();
+
+                //         review.Id = (int) reviewRow["Id"];
+                //         review.RestaurantId = (int) reviewRow["RestaurantId"];
+                //         review.Rating = (int) reviewRow["Rating"];
+                //         review.Note = reviewRow["NOTE"].ToString() ?? "";
+
+                //         resto.Reviews.Add(review);
+                //     }
+                // }
+
+                allRestaurants.Add(resto);
             }
-            //closing the connection to DB
-            connection.Close();
         }
-
         return allRestaurants;
     }
+
+    //This is a way to grab all restaurants using DataReader
+    // public List<Restaurant> GetAllRestaurants()
+    // {
+    //     List<Restaurant> allRestaurants = new List<Restaurant>();
+    //     using(SqlConnection connection = new SqlConnection(_connectionString))
+    //     {
+    //         //Opening the connection to DB
+    //         connection.Open();
+
+    //         //assembling our query to query the db with
+    //         string queryTxt = "SELECT * FROM Restaurant";
+    //         //take the query text and connection we've built, and get ourselves
+    //         //SqlCommand object that is capable of executing the command
+    //         //on a particular SQL DB we specify.
+    //         using(SqlCommand cmd = new SqlCommand(queryTxt, connection))
+    //         {
+    //             //Get the result of the command via SqlDataReader
+    //             //SqlDataReader is part of what we call Connected Architecture
+    //             //in ADO.NET
+    //             //Data only exists while the connection is alive
+    //             //And is not cached in memory
+    //             //Efficient when working with large dataset because we are not storing all the data in our memory
+
+    //             using(SqlDataReader reader = cmd.ExecuteReader())
+    //             {
+    //                 while(reader.Read())
+    //                 {   
+    //                     Restaurant resto = new Restaurant();
+    //                     resto.Id = reader.GetInt32(0);
+    //                     resto.Name = reader.GetString(1);
+    //                     resto.City = reader.GetString(2);
+    //                     resto.State = reader.GetString(3);
+
+    //                     allRestaurants.Add(resto);
+    //                 }
+    //             }
+    //         }
+    //         //closing the connection to DB
+    //         connection.Close();
+    //     }
+
+    //     return allRestaurants;
+    // }
 }
