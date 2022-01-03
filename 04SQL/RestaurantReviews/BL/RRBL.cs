@@ -29,10 +29,10 @@ public class RRBL : IBL
     /// <summary>
     /// Adds a new review to the restaurant that exists on that index
     /// </summary>
-    /// <param name="restaurantIndex">index of the restaurant to leave a review for</param>
+    /// <param name="restaurantId">index of the restaurant to leave a review for</param>
     /// <param name="reviewToAdd">a review object to be added to the restaurant</param>
-    public void AddReview(int restaurantIndex, Review reviewToAdd)
+    public void AddReview(int restaurantId, Review reviewToAdd)
     {
-        _dl.AddReview(restaurantIndex, reviewToAdd);
+        _dl.AddReview(restaurantId, reviewToAdd);
     }
 }

@@ -71,7 +71,7 @@ public class ReviewMenu : IMenu
             try
             {
                 Review newReview = new Review(rating, note);
-                _bl.AddReview(selection, newReview);
+                _bl.AddReview(allRestaurants[selection].Id, newReview);
                 Console.WriteLine("Your review has been successfully added!");
             }
             catch(InputInvalidException ex)

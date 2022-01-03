@@ -73,20 +73,48 @@ public class DBRepo : IRepo
                 //How to insert the new records it sees in the restoTable
                 string insertCmd = $"INSERT INTO Restaurant (Name, City, State) VALUES ('{restaurantToAdd.Name}', '{restaurantToAdd.City}', '{restaurantToAdd.State}')";
 
+                SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(dataAdapter);
+
                 //We have to tell the data adapter how to insert records (it's not magic)
-                dataAdapter.InsertCommand = new SqlCommand(insertCmd, connection);
+                //We can either generate this command by manually typing it out or using SqlCommandBuilder
+                // dataAdapter.InsertCommand = new SqlCommand(insertCmd, connection);
+                dataAdapter.InsertCommand = cmdBuilder.GetInsertCommand();
+                
                 //SqlDataAdapter.UpdateCommand (for your Put/Update operations)
+                // dataAdapter.UpdateCommand = cmdBuilder.GetUpdateCommand();
+
                 //SqlDataAdapter.DeleteCommand (for your Delete Operations)
+                // dataAdapter.DeleteCommand = cmdBuilder.GetDeleteCommand();
                 //Tell the dataAdapter to update the DB with changes
                 dataAdapter.Update(restoTable);
             }
         }
-
     }
 
-    public void AddReview(int restaurantIndex, Review reviewToAdd)
+    public void AddReview(int restaurantId, Review reviewToAdd)
     {
-        throw new NotImplementedException();
+        using(SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            connection.Open();
+            string sqlCmd = "INSERT INTO Review (RestaurantId, Rating, NOTE) VALUES (@restoId, @rating, @note)";
+
+            using(SqlCommand cmd = new SqlCommand(sqlCmd, connection))
+            {
+                SqlParameter param = new SqlParameter("@restoId", restaurantId);
+                cmd.Parameters.Add(param);
+
+                param = new SqlParameter("@rating", reviewToAdd.Rating);
+                cmd.Parameters.Add(param);
+
+                param = new SqlParameter("@note", reviewToAdd.Note);
+                cmd.Parameters.Add(param);
+
+                cmd.ExecuteNonQuery();
+            }
+            connection.Close();
+        }
+        
+        
     }
 
     public List<Restaurant> GetAllRestaurants()

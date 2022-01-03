@@ -8,5 +8,5 @@ public interface IBL
 
     void AddRestaurant(Restaurant restaurantToAdd);
 
-    void AddReview(int restaurantIndex, Review reviewToAdd);
+    void AddReview(int restaurantId, Review reviewToAdd);
 }
