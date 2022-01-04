@@ -92,4 +92,9 @@ public class FileRepo : IRepo
         string jsonString = JsonSerializer.Serialize(allRestaurants);
         File.WriteAllText(filePath, jsonString);
     }
+
+    public List<Restaurant> SearchRestaurants(string searchTerm)
+    {
+        throw new NotImplementedException();
+    }
 }

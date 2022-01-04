@@ -18,4 +18,6 @@ public interface IRepo
     void AddRestaurant(Restaurant restaurantToAdd);
 
     void AddReview(int restaurantId, Review reviewToAdd);
+
+    List<Restaurant> SearchRestaurants(string searchTerm);
 }

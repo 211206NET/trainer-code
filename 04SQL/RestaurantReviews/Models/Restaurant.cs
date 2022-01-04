@@ -1,5 +1,6 @@
 using CustomExceptions;
 using System.Text.RegularExpressions;
+using System.Data;
 
 namespace Models;
 
@@ -21,6 +22,18 @@ public class Restaurant {
     {
         this.Reviews = new List<Review>();
         this._name = name;
+    }
+
+    /// <summary>
+    /// Converting Restaurant table's data row into Restaurant Object
+    /// </summary>
+    /// <param name="row">a data row from Restaurant object, must have id, name, city, state columns</param>
+    public Restaurant(DataRow row)
+    {
+        this.Id = (int) row["Id"];
+        this.Name = row["Name"].ToString() ?? "";
+        this.City = row["City"].ToString() ?? "";
+        this.State = row["State"].ToString() ?? "";
     }
 
     public int Id { get; set; }
@@ -75,5 +88,16 @@ public class Restaurant {
     public override string ToString()
     {
         return $"Id: {this.Id} \nName: {this.Name} \nCity: {this.City} \nState: {this.State}";
+    }
+
+    /// <summary>
+    /// Takes in Restaurant Table's DataRow and fills the columns with the Restaurant Instance's info
+    /// </summary>
+    /// <param name="row">Restaurant Table's DataRow pass by ref</param>
+    public void ToDataRow(ref DataRow row)
+    {
+        row["Name"] = this.Name;
+        row["City"] = this.City;
+        row["State"] = this.State;
     }
 }

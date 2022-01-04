@@ -3,7 +3,6 @@ using Microsoft.Data.SqlClient;
 //dotnet add package Microsoft.Data.Sqlclient
 using System.Data;
 //Include this namespace to be able to use DataSet
-using System.Linq;
 namespace DL;
 
 public class DBRepo : IRepo
@@ -60,11 +59,12 @@ public class DBRepo : IRepo
 
                 //Generate a new row with the Restaurant Table Schema
                 DataRow newRow = restoTable.NewRow();
-
+                
+                restaurantToAdd.ToDataRow(ref newRow);
                 //Fill the new row with the new restaurant information
-                newRow["Name"] = restaurantToAdd.Name;
-                newRow["City"] = restaurantToAdd.City ?? "";
-                newRow["State"] = restaurantToAdd.State ?? "";
+                // newRow["Name"] = restaurantToAdd.Name;
+                // newRow["City"] = restaurantToAdd.City ?? "";
+                // newRow["State"] = restaurantToAdd.State ?? "";
 
                 //add the new row to our restaurantTable Rows
                 restoTable.Rows.Add(newRow);
@@ -92,6 +92,11 @@ public class DBRepo : IRepo
         }
     }
 
+    /// <summary>
+    /// Adds a new review to Review Table
+    /// </summary>
+    /// <param name="restaurantId">Id of the restaurant to add the review for</param>
+    /// <param name="reviewToAdd">Review object to be added</param>
     public void AddReview(int restaurantId, Review reviewToAdd)
     {
         using(SqlConnection connection = new SqlConnection(_connectionString))
@@ -140,14 +145,14 @@ public class DBRepo : IRepo
         DataTable? ReviewTable = RRSet.Tables["Review"];
 
         if(RestaurantTable != null && ReviewTable != null)
-        {
+        {   
             foreach(DataRow row in RestaurantTable.Rows)
             {
-                Restaurant resto = new Restaurant();
-                resto.Id = (int) row["Id"];
-                resto.Name = row["Name"].ToString() ?? "";
-                resto.City = row["City"].ToString() ?? "";
-                resto.State = row["State"].ToString() ?? "";
+                Restaurant resto = new Restaurant(row);
+                // resto.Id = (int) row["Id"];
+                // resto.Name = row["Name"].ToString() ?? "";
+                // resto.City = row["City"].ToString() ?? "";
+                // resto.State = row["State"].ToString() ?? "";
 
                 //LINQ: Language Integrated Query
                 //ReviewTable.AsEnumerable() got me IEnumerable<DataRow>
@@ -231,4 +236,39 @@ public class DBRepo : IRepo
 
     //     return allRestaurants;
     // }
+
+    /// <summary>
+    /// Search for restaurant by either name, city, or state
+    /// </summary>
+    /// <param name="searchTerm">string param to search restaurants by</param>
+    /// <returns>List of Restaurants that contains the search term, an empty list otherwise</returns>
+    public List<Restaurant> SearchRestaurants(string searchTerm)
+    {
+        string searchQuery = $"SELECT * FROM Restaurant WHERE Name LIKE '%{searchTerm}%' OR City LIKE '%{searchTerm}%' OR State LIKE '%{searchTerm}%'";
+
+        using SqlConnection connection = new SqlConnection(_connectionString);
+        using SqlCommand cmd = new SqlCommand(searchQuery, connection);
+        using SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+        //Getting ourselves a bucket for our data
+        DataSet restaurantSet = new DataSet();
+
+        //Telling the data adapter to fill our dataset
+        adapter.Fill(restaurantSet, "Restaurant");
+
+        //Our result of executing the searchQuery
+        DataTable restaurantTable = restaurantSet.Tables["Restaurant"];
+
+        List<Restaurant> searchResult = new List<Restaurant>();
+
+        //Processing data from rows of data to list of restaurants
+        //so rest of our app can consume
+        foreach(DataRow row in restaurantTable.Rows)
+        {
+            Restaurant resto = new Restaurant(row);
+            searchResult.Add(resto);
+        }
+
+        return searchResult;
+    }
 }

@@ -34,4 +34,9 @@ public class StaticStorage : IRepo
         // Restaurant selectedRestaurant = StaticStorage._allRestaurants[restaurantIndex];
         // selectedRestaurant.Reviews.Add(reviewToAdd);
     }
+
+    public List<Restaurant> SearchRestaurants(string searchTerm)
+    {
+        throw new NotImplementedException();
+    }
 }

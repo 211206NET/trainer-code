@@ -35,4 +35,9 @@ public class RRBL : IBL
     {
         _dl.AddReview(restaurantId, reviewToAdd);
     }
+
+    public List<Restaurant> SearchRestaurants(string searchTerm)
+    {
+        return _dl.SearchRestaurants(searchTerm);
+    }
 }
