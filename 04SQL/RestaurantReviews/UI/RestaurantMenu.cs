@@ -84,6 +84,11 @@ public class RestaurantMenu : IMenu
             Console.WriteLine(ex.Message);
             goto createRestaurant;
         }
+        catch (DuplicateRecordException ex)
+        {
+            Console.WriteLine(ex.Message);
+            goto createRestaurant;
+        }
     }
 
     private void ViewAllRestaurants()

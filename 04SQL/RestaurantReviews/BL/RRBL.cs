@@ -1,4 +1,6 @@
-﻿namespace BL;
+﻿using CustomExceptions;
+
+namespace BL;
 public class RRBL : IBL
 {
     private IRepo _dl;
@@ -23,7 +25,11 @@ public class RRBL : IBL
     /// <param name="restaurantToAdd">restaurant object to add</param>
     public void AddRestaurant(Restaurant restaurantToAdd)
     {
-        _dl.AddRestaurant(restaurantToAdd);
+        if(!_dl.IsDuplicate(restaurantToAdd))
+        {
+            _dl.AddRestaurant(restaurantToAdd);
+        }
+        else throw new DuplicateRecordException("A restaurant with same name, city, and state already exists!");
     }
 
     /// <summary>

@@ -271,4 +271,29 @@ public class DBRepo : IRepo
 
         return searchResult;
     }
+
+    /// <summary>
+    /// Search for the restaurant for exact match of name, city, and state
+    /// </summary>
+    /// <param name="restaurant">restaurant object to search for dup</param>
+    /// <returns>bool: true if there is duplicate, false if not</returns>
+    public bool IsDuplicate(Restaurant restaurant)
+    {
+        string searchQuery = $"SELECT * FROM Restaurant WHERE Name='{restaurant.Name}' AND City='{restaurant.City}' AND State='{restaurant.State}'";
+        
+        using SqlConnection connection = new SqlConnection(_connectionString);
+        using SqlCommand cmd = new SqlCommand(searchQuery, connection);
+
+        connection.Open();
+
+        using SqlDataReader reader = cmd.ExecuteReader();
+
+        if(reader.HasRows)
+        {
+            //Query returned something, there exists an record that shares the same name, city, and state to the restaurant the user is trying to create 
+            return true;
+        }
+        //The loop was never reached, no record was returned. No duplicate record in the db
+        return false;
+    }
 }

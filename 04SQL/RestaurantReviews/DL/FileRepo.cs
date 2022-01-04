@@ -97,4 +97,9 @@ public class FileRepo : IRepo
     {
         throw new NotImplementedException();
     }
+
+    public bool IsDuplicate(Restaurant restaurant)
+    {
+        throw new NotImplementedException();
+    }
 }
