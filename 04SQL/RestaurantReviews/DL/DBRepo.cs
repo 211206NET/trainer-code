@@ -290,10 +290,10 @@ public class DBRepo : IRepo
 
         if(reader.HasRows)
         {
-            //Query returned something, there exists an record that shares the same name, city, and state to the restaurant the user is trying to create 
+            //Query returned something, there exists a record that shares the same name, city, and state to the restaurant the user is trying to create 
             return true;
         }
-        //The loop was never reached, no record was returned. No duplicate record in the db
+        //no record was returned. No duplicate record in the db
         return false;
     }
 }
