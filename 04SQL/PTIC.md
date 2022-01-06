@@ -13,7 +13,7 @@ Triggers are a type of Stored Procedures that reacts to a certain type of events
 - [Nice intro on Triggers](https://www.sqlshack.com/learn-sql-sql-triggers/)
 - [Another short article on triggers](https://www.c-sharpcorner.com/UploadFile/63f5c2/triggers-in-sql-server/)
 - [Yet another...](https://www.geeksforgeeks.org/sql-trigger-student-database/)
-- [Lenghtier tutorial on triggers](https://www.sqlservertutorial.net/sql-server-triggers/)
+- [Lengthier tutorial on triggers](https://www.sqlservertutorial.net/sql-server-triggers/)
 
 ## Indexes
 Indexes are lookup tables that makes data retrieval faster. It is similar to how we use table of contents or the index in books to quickly locate the material (without the ctrl + f)! Smart use of index can dramatically improve retrieval performance.
