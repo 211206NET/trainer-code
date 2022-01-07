@@ -1,8 +1,8 @@
 -- Creating a new db in our server, named rrdb
-CREATE DATABASE RRDB;
+CREATE DATABASE RRTestDB;
 
 -- turning off super annoying feature ("auto close") that gets enabled by default
-ALTER DATABASE RRDB
+ALTER DATABASE RRTestDB
 SET AUTO_CLOSE OFF;
 
 -- Changing to use RRDB db instead of master
@@ -26,7 +26,7 @@ CREATE TABLE Restaurant(
 CREATE TABLE Review(
     Id INT PRIMARY KEY IDENTITY(1, 1),
     Rating INT NOT NULL,
-    NOTE NTEXT,
+    NOTE nvarchar(max),
     RestaurantId INT FOREIGN KEY REFERENCES Restaurant(Id) NOT NULL
 );
 
@@ -57,3 +57,6 @@ Delete FROM Restaurant Where Name like 'Salt%';
 Update Restaurant
 SET City = 'Portland', State = 'OR'
 WHERE Name = 'Salt and Straw';
+
+Alter TABLE Review
+ALTER COLUMN NOTE NVARCHAR(MAX);
