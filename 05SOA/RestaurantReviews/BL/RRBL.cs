@@ -51,4 +51,9 @@ public class RRBL : IBL
     {
         return _dl.GetRestaurantById(restaurantId);
     }
+
+    public List<Review> GetReviewsByRestaurantId(int restaurantId)
+    {
+        return _dl.GetReviewsByRestaurantId(restaurantId);
+    }
 }

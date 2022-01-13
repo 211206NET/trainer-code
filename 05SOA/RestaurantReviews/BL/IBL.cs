@@ -12,4 +12,6 @@ public interface IBL
 
     Restaurant GetRestaurantById(int restaurantId);
 
+    public List<Review> GetReviewsByRestaurantId(int restaurantId);
+
 }

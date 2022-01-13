@@ -318,4 +318,33 @@ public class DBRepo : IRepo
         connection.Close(); 
         return restaurant;
     }
+
+    public List<Review> GetReviewsByRestaurantId(int restaurantId)
+    {
+        string selectcmd = "Select * From Review Where RestaurantId = @restoId";
+        SqlConnection connection = new SqlConnection(_connectionString);
+        SqlCommand cmd = new SqlCommand(selectcmd, connection);
+        SqlParameter param = new SqlParameter("@restoId", restaurantId);
+        cmd.Parameters.Add(param);
+
+        DataSet reviewSet = new DataSet();
+
+        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+        adapter.Fill(reviewSet, "review");
+
+        DataTable reviewTable = reviewSet.Tables["review"];
+
+        List<Review> reviews = new List<Review>();
+        foreach(DataRow dr in reviewTable.Rows)
+        {
+            reviews.Add(new Review
+            {
+                Id = (int) dr["Id"],
+                Rating = (int) dr["Rating"],
+                Note = (string) dr["NOTE"] ?? "",
+            });
+        }
+        return reviews;
+    }
 }
