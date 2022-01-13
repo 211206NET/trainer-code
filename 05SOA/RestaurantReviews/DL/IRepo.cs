@@ -22,4 +22,6 @@ public interface IRepo
     List<Restaurant> SearchRestaurants(string searchTerm);
 
     bool IsDuplicate(Restaurant restaurant);
+
+    Restaurant GetRestaurantById(int restaurantId);
 }

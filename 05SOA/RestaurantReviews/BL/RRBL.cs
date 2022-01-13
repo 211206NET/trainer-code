@@ -46,4 +46,9 @@ public class RRBL : IBL
     {
         return _dl.SearchRestaurants(searchTerm);
     }
+
+    public Restaurant GetRestaurantById(int restaurantId)
+    {
+        return _dl.GetRestaurantById(restaurantId);
+    }
 }

@@ -10,4 +10,6 @@ public interface IBL
 
     void AddReview(int restaurantId, Review reviewToAdd);
 
+    Restaurant GetRestaurantById(int restaurantId);
+
 }

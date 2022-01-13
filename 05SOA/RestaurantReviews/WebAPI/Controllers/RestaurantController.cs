@@ -25,9 +25,17 @@ namespace WebAPI.Controllers
 
         // GET api/<RestaurantController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<Restaurant> Get(int id)
         {
-            return "value";
+            Restaurant foundResto = _bl.GetRestaurantById(id);
+            if(foundResto.Id != 0)
+            {
+                return Ok(foundResto);
+            }
+            else
+            {
+                return NoContent();
+            }
         }
 
         // POST api/<RestaurantController>

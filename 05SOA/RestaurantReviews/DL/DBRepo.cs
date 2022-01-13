@@ -296,4 +296,26 @@ public class DBRepo : IRepo
         //no record was returned. No duplicate record in the db
         return false;
     }
+
+    public Restaurant GetRestaurantById(int restaurantId)
+    {
+        string query = "Select * From Restaurant Where Id = @restoId";
+        using SqlConnection connection = new SqlConnection(_connectionString);
+        connection.Open();
+        using SqlCommand cmd = new SqlCommand(query, connection);
+        SqlParameter param = new SqlParameter("@restoId", restaurantId);
+        cmd.Parameters.Add(param);
+
+        using SqlDataReader reader = cmd.ExecuteReader();
+        Restaurant restaurant = new Restaurant();
+        if(reader.Read())
+        {
+            restaurant.Id = reader.GetInt32(0);
+            restaurant.Name = reader.GetString(1);
+            restaurant.City = reader.GetString(2);
+            restaurant.State = reader.GetString(3);
+        }
+        connection.Close(); 
+        return restaurant;
+    }
 }
