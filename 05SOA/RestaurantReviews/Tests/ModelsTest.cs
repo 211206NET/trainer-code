@@ -41,34 +41,35 @@ public class ModelsTest
         Assert.Equal(state, testRestaurant.State);
     }
 
-    [Theory]
-    [InlineData("#$%^@#$%#@")]
-    [InlineData("     ")]
-    [InlineData(null)]
-    [InlineData("")]
-    public void RestaurantShouldNotSetInvalidName(string input)
-    {
-        //For this test, I'm going to make sure when I try to set invalid name
-        //Restaurant class will throw InputInvalidException
+    //[Theory]
+    //[InlineData("#$%^@#$%#@")]
+    //[InlineData("     ")]
+    //[InlineData(null)]
+    //[InlineData("")]
+    //public void RestaurantShouldNotSetInvalidName(string input)
+    //{
+    //    //For this test, I'm going to make sure when I try to set invalid name
+    //    //Restaurant class will throw InputInvalidException
 
-        //Arrange: I'm going to have a test restaurant object and invalid string to attempt to set it as the name
-        Restaurant testRestaurant = new Restaurant();
+    //    //Arrange: I'm going to have a test restaurant object and invalid string to attempt to set it as the name
+    //    Restaurant testRestaurant = new Restaurant();
 
-        //Act: I'm going to try and setting invalid name as the restaurant.Name
-        //Assert: Assert that Restaurant class throws an Exception
-        Assert.Throws<InputInvalidException>(() => testRestaurant.Name = input);
-    }
+    //    //Act: I'm going to try and setting invalid name as the restaurant.Name
+    //    //Assert: Assert that Restaurant class throws an Exception
+    //    Assert.Throws<InputInvalidException>(() => testRestaurant.Name = input);
+    //}
 
     [Fact]
     public void RestaurantShouldHaveCustomToStringMethod()
     {
         //Arrange: the restaurant with its properties, and the expected ToString output
         Restaurant testRestaurant = new Restaurant{
+            Id = 2,
             Name = "Test Restaurant",
             City = "Test City",
             State = "Test State"
         };
-        string expectedOutput = "Name: Test Restaurant \nCity: Test City \nState: Test State";
+        string expectedOutput = "Id: 2 \nName: Test Restaurant \nCity: Test City \nState: Test State";
 
         //Act: call ToString Method
         //Assert: the output of ToString Method is equal to the expected output

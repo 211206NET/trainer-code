@@ -5,6 +5,7 @@
 
 connectionString.txt
 connectionStringLocal.txt
+appsettings.Development.json
 # User-specific files
 *.rsuser
 *.suo
