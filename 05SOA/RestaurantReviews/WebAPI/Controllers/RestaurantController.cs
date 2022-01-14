@@ -21,13 +21,13 @@ namespace WebAPI.Controllers
         }
         // GET: api/<RestaurantController>
         [HttpGet]
-        public List<Restaurant> Get()
+        public async Task<List<Restaurant>> GetAsync()
         {
             List<Restaurant> allResto;
             
             if(!_memoryCache.TryGetValue("restaurant", out allResto))
             {
-                allResto = _bl.GetAllRestaurants();
+                allResto = await _bl.GetAllRestaurantsAsync();
                 _memoryCache.Set("restaurant", allResto, new TimeSpan(0, 0, 30));
             }
             return allResto;
@@ -35,9 +35,9 @@ namespace WebAPI.Controllers
 
         // GET api/<RestaurantController>/5
         [HttpGet("{id}")]
-        public ActionResult<Restaurant> Get(int id)
+        public async Task<ActionResult<Restaurant>> GetAsync(int id)
         {
-            Restaurant foundResto = _bl.GetRestaurantById(id);
+            Restaurant foundResto = await _bl.GetRestaurantByIdAsync(id);
             if(foundResto.Id != 0)
             {
                 return Ok(foundResto);

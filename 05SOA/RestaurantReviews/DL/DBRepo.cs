@@ -194,48 +194,48 @@ public class DBRepo : IRepo
     }
 
     //This is a way to grab all restaurants using DataReader
-    // public List<Restaurant> GetAllRestaurants()
-    // {
-    //     List<Restaurant> allRestaurants = new List<Restaurant>();
-    //     using(SqlConnection connection = new SqlConnection(_connectionString))
-    //     {
-    //         //Opening the connection to DB
-    //         connection.Open();
+    public async Task<List<Restaurant>> GetAllRestaurantsAsync()
+    {
+        List<Restaurant> allRestaurants = new List<Restaurant>();
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            //Opening the connection to DB
+            connection.Open();
 
-    //         //assembling our query to query the db with
-    //         string queryTxt = "SELECT * FROM Restaurant";
-    //         //take the query text and connection we've built, and get ourselves
-    //         //SqlCommand object that is capable of executing the command
-    //         //on a particular SQL DB we specify.
-    //         using(SqlCommand cmd = new SqlCommand(queryTxt, connection))
-    //         {
-    //             //Get the result of the command via SqlDataReader
-    //             //SqlDataReader is part of what we call Connected Architecture
-    //             //in ADO.NET
-    //             //Data only exists while the connection is alive
-    //             //And is not cached in memory
-    //             //Efficient when working with large dataset because we are not storing all the data in our memory
+            //assembling our query to query the db with
+            string queryTxt = "SELECT * FROM Restaurant";
+            //take the query text and connection we've built, and get ourselves
+            //SqlCommand object that is capable of executing the command
+            //on a particular SQL DB we specify.
+            using (SqlCommand cmd = new SqlCommand(queryTxt, connection))
+            {
+                //Get the result of the command via SqlDataReader
+                //SqlDataReader is part of what we call Connected Architecture
+                //in ADO.NET
+                //Data only exists while the connection is alive
+                //And is not cached in memory
+                //Efficient when working with large dataset because we are not storing all the data in our memory
 
-    //             using(SqlDataReader reader = cmd.ExecuteReader())
-    //             {
-    //                 while(reader.Read())
-    //                 {   
-    //                     Restaurant resto = new Restaurant();
-    //                     resto.Id = reader.GetInt32(0);
-    //                     resto.Name = reader.GetString(1);
-    //                     resto.City = reader.GetString(2);
-    //                     resto.State = reader.GetString(3);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        Restaurant resto = new Restaurant();
+                        resto.Id = reader.GetInt32(0);
+                        resto.Name = reader.GetString(1);
+                        resto.City = reader.GetString(2);
+                        resto.State = reader.GetString(3);
 
-    //                     allRestaurants.Add(resto);
-    //                 }
-    //             }
-    //         }
-    //         //closing the connection to DB
-    //         connection.Close();
-    //     }
+                        allRestaurants.Add(resto);
+                    }
+                }
+            }
+            //closing the connection to DB
+            connection.Close();
+        }
 
-    //     return allRestaurants;
-    // }
+        return allRestaurants;
+    }
 
     /// <summary>
     /// Search for restaurant by either name, city, or state
@@ -297,7 +297,7 @@ public class DBRepo : IRepo
         return false;
     }
 
-    public Restaurant GetRestaurantById(int restaurantId)
+    public async Task<Restaurant> GetRestaurantByIdAsync(int restaurantId)
     {
         string query = "Select * From Restaurant Where Id = @restoId";
         using SqlConnection connection = new SqlConnection(_connectionString);
@@ -308,7 +308,7 @@ public class DBRepo : IRepo
 
         using SqlDataReader reader = cmd.ExecuteReader();
         Restaurant restaurant = new Restaurant();
-        if(reader.Read())
+        if(await reader.ReadAsync())
         {
             restaurant.Id = reader.GetInt32(0);
             restaurant.Name = reader.GetString(1);

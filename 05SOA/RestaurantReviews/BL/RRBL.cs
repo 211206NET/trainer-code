@@ -14,9 +14,9 @@ public class RRBL : IBL
     /// Gets all restaurants
     /// </summary>
     /// <returns>list of all restaurants</returns>
-    public List<Restaurant> GetAllRestaurants()
+    public async Task<List<Restaurant>> GetAllRestaurantsAsync()
     {
-        return _dl.GetAllRestaurants();
+        return await _dl.GetAllRestaurantsAsync();
     }
 
     /// <summary>
@@ -47,9 +47,9 @@ public class RRBL : IBL
         return _dl.SearchRestaurants(searchTerm);
     }
 
-    public Restaurant GetRestaurantById(int restaurantId)
+    public async Task<Restaurant> GetRestaurantByIdAsync(int restaurantId)
     {
-        return _dl.GetRestaurantById(restaurantId);
+        return await _dl.GetRestaurantByIdAsync(restaurantId);
     }
 
     public List<Review> GetReviewsByRestaurantId(int restaurantId)

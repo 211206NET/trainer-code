@@ -15,6 +15,9 @@ public interface IRepo
     //they also lack method body
     List<Restaurant> GetAllRestaurants();
 
+    Task<List<Restaurant>> GetAllRestaurantsAsync();
+
+
     void AddRestaurant(Restaurant restaurantToAdd);
 
     void AddReview(int restaurantId, Review reviewToAdd);
@@ -23,7 +26,7 @@ public interface IRepo
 
     bool IsDuplicate(Restaurant restaurant);
 
-    Restaurant GetRestaurantById(int restaurantId);
+    Task<Restaurant> GetRestaurantByIdAsync(int restaurantId);
 
     List<Review> GetReviewsByRestaurantId(int restaurantId);
 }
