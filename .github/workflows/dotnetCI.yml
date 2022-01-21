@@ -52,12 +52,14 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ${{env.WORKING_DIRECTORY}}
       
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal ${{env.WORKING_DIRECTORY}} --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+      
     - name: Build and analyze
       shell: powershell
       run: |
-        .\.sonar\scanner\dotnet-sonarscanner begin /k:"211206NET_trainer-code" /o:"211206net" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-        <insert_your_clean_build_command>
+        .\.sonar\scanner\dotnet-sonarscanner begin /k:"211206NET_trainer-code" /o:"211206net" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
+        dotnet build ${{ env.WORKING_DIRECTORY }} --configuration Release
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
       
-    - name: Test
-      run: dotnet test --no-build --verbosity normal ${{env.WORKING_DIRECTORY}}
+    
