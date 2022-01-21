@@ -9,7 +9,7 @@ on:
 
 env:
   IMAGE_NAME: sminseonong/rr-docker
-  TAG_NAME: $(date +%s)
+  TAG_NAME: ${{ github.sha }}
   WORKING_DIRECTORY: 05SOA/RestaurantReviews
 
 jobs:
