@@ -48,7 +48,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ${{ env.WORKING_DIRECTORY }}
     - name: Test
-      run: pwd dotnet test ${{ env.WORKING_DIRECTORY }}/Tests --no-build --verbosity normal --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+      run: pwd && dotnet test ${{ env.WORKING_DIRECTORY }}/Tests --no-build --verbosity normal --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
     - name: Build and analyze
       shell: powershell
       run: |
