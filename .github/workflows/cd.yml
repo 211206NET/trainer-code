@@ -46,7 +46,7 @@ jobs:
         # Beanstalk environment name. If empty a version will be created but not deployed anywhere.
         environment_name: WebAPI-prod
         # Version label for new Beanstalk version
-        version_label: 1
+        version_label: 2
         # Version description for the new Beanstalk version
         # version_description: # optional
         # Zip file with the version to deploy. If skipped the action will deploy existing version.
