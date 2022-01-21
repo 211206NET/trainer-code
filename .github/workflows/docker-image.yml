@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+  workflow_run:
+    workflows: [".NET CI"]
+    branches: [main]
+    types:
+      - completed
+
+env:
+  IMAGE_NAME: sminseonong/rr-docker
+  TAG_NAME: $(date + %s)
+  WORKING_DIRECTORY: 05SOA/RestaurantReviews
+
+jobs:
+
+  docker-build:
+
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build the Docker image
+      run: cd ${{env.WORKING_DIRECTORY}} && docker build . -t ${{ env.IMAGE_NAME }}:${{env.TAG_NAME}}
+      
+    - name: Push to dockerhub
+      run: docker push ${{ env.IMAGE_NAME }}:${{env.TAG_NAME}}
