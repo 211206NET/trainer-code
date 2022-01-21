@@ -20,8 +20,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ${{ env.WORKING_DIRECTORY }}
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build ${{ env.WORKING_DIRECTORY }} --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build --verbosity normal
