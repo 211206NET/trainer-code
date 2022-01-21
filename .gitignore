@@ -6,6 +6,9 @@
 connectionString.txt
 connectionStringLocal.txt
 appsettings.Development.json
+
+**/publish/**/*.*
+publish.zip
 # User-specific files
 *.rsuser
 *.suo
