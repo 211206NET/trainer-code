@@ -30,7 +30,7 @@ jobs:
     - name: dotnet publish
       run: dotnet publish ${{ env.WORKING_DIRECTORY }} -c Release -o ${{env.WORKING_DIRECTORY}}/publish
     - name: Generate deployment package
-      run: pwd zip -r publish.zip ./*.*
+      run: cd ${{ env.WORKING_DIRECTORY }}/publish && zip -r ../publish.zip .
       
 #     - name: Beanstalk Deploy
 #       # You may pin to the exact commit or the version.
