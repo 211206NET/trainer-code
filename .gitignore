@@ -6,6 +6,7 @@
 connectionString.txt
 connectionStringLocal.txt
 appsettings.Development.json
+appsettings.json
 
 **/publish/**/*.*
 publish.zip

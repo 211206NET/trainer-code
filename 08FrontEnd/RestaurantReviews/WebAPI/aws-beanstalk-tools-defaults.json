@@ -1,0 +1,20 @@
+
+{
+    "region" : "us-west-2",
+    "configuration" : "Release",
+    "framework"     : "net6.0",
+    "self-contained" : true,
+    "application"    : "RRWebAPI",
+    "environment"    : "RRWebAPI-prod",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "",
+    "solution-stack"       : "64bit Amazon Linux 2 v2.2.9 running .NET Core",
+    "environment-type"     : "SingleInstance",
+    "cname"                : "rrwebapi-prod",
+    "instance-type"        : "t2.micro",
+    "key-pair"             : "211206rr",
+    "instance-profile"     : "aws-elasticbeanstalk-ec2-role",
+    "service-role"         : "aws-elasticbeanstalk-service-role",
+    "proxy-server"         : "nginx"
+}
