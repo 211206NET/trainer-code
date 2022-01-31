@@ -25,6 +25,6 @@ console.log(auryn)
 // console.log(there()); //Reference Error
 
 let there = function() {
-    console.log("Be a light")
+    console.log("Be light")
 }
 console.log(there())

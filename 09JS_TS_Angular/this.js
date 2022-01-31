@@ -1,17 +1,20 @@
+'use strict';
+
 function globalThis()
 {
     return this;
 }
 
-(function()
+function logThis()
 {
-    let x = true;
-    console.log(globalThis());
-})()
+    console.log(this)
+}
 
 class sampleClass
 {
-    fn() {
+    fn(x) {
+        console.log(x)
+        console.log(this)
         return this;
     }
 }
