@@ -108,3 +108,8 @@ function outerFn()
 
 let closure = outerFn();
 closure("something truthy");
+
+function greet()
+{
+    alert("greetings")
+}
