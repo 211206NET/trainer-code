@@ -12,7 +12,11 @@
             margin-top: 20px;
         }
         .img-container > img{
-            max-width: 300px;
+            max-width: 95%;
+        }
+        .half-width
+        {
+            width: 50%;
         }
     </style>
 </head>
@@ -23,22 +27,21 @@
             <h3>Asynchronous Javascript and XML</h3>
         </div>
         <div class=row>
-            <h3>XML HTTP Request</h3>
-            <div class="container">
+            <div class="container half-width">
+                <h3>XML HTTP Request</h3>
                 <button class="btn btn-success" onclick="getMeACat()">Give Me a Cat!</button>
+                <div class="img-container">
+                    <img id="cat-img" src="https://cataas.com/cat" alt="">
+                    <div>
+                        <div id="cat-id"></div>
+                        <div id="cat-tags"></div>
+                    </div>
+                </div>
             </div>
-            <div class="container img-container">
-                <img id="cat-img" src="https://cataas.com/cat" alt="">
-                <span id="cat-id"></span>
-                <span id="cat-tags"></span>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <h3>Fetch API</h3>
-            <div class="container">
+            <div class="container half-width">
+                <h3>Fetch API</h3>
                 <button class="btn btn-warning" onclick="getMeADog()">Give Me a Dog!</button>
-                <div class=" img-container">
+                <div class="img-container">
                     <img id="dog-img" src="" alt="">
                     <span id="dog-url"></span>
                 </div>
