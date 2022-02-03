@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>Create a New Restaurant</h1>
+    <a routerLink="/">Back to Lists</a>
+</div>
+<div class="container">
+    <div class="row half-width">
+        <form (ngSubmit)="processForm(newRestoForm)" #newRestoForm="ngForm">
+            <div class="form-group">
+                <label for="resto-name">Restaurant Name:</label>
+                <input class="form-control" [(ngModel)]="restaurant.name" type="text" id="resto-name" name="resto-name">
+            </div>
+            <div class="form-group">
+                <label for="resto-street">Street Address:</label>
+                <input class="form-control" type="text" id="resto-street" name="resto-street">
+            </div>
+            <div class="form-group">
+                <label for="resto-city">City:</label>
+                <input class="form-control" type="text" id="resto-city" name="resto-city">
+            </div>
+            <div class="form-group">
+                <label for="resto-state">State:</label>
+                <input class="form-control" type="text" id="resto-state" name="resto-state">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

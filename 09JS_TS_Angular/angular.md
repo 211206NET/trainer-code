@@ -32,7 +32,7 @@
         - This opens up the browser at localhost:4200 for you
 
 ## Modules
-Modules in Angular is similar to namespaces in C# program. It works to bundle various objects under one same roof for easy transportation. Components MUST be registered in one module to be able to be used. If a resident of a module require a service or component from a different module, then the module must be imported in the module.ts file before it can be used by residents on that module.
+Modules in Angular are similar to namespaces in C# program. It works to bundle various objects under one same roof for easy transportation. Components MUST be registered in one module to be able to be used. If a member of a module require a class or a component from a different module, then the module must be imported in the module.ts file before it can be used by members of that module.
 In order to create a new module, `ng generate module <module-name>`
 
 ## Components
@@ -66,8 +66,7 @@ Structural directives modify DOM as in, they add or remove html elements.
 Some examples of structural directives are `*ngIf`, `*ngFor`, `*ngSwitch` and more
 
 ### Attribute directives
-Attribute directives doesn't change the structure of DOM,
-they modify, or add/change attributes - such as ngStyle. (They change or modify the element's appearance or behaviors)
+Attribute directives doesn't change the structure of DOM. They add or modify attributes - such as ngStyle. (They change or modify the element's appearance or behaviors)
 
 ### Promises, Observables
 Both of them represent async operations that result in some form of return. Promises are closed after the result has been returned. Once it is fulfilled it's done. Observables use publisher/subscriber model and whenever there are any changes, all subscribers are notified of them.
