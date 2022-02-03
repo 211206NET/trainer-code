@@ -72,6 +72,33 @@ Attribute directives doesn't change the structure of DOM. They add or modify att
 Both of them represent async operations that result in some form of return. Promises are closed after the result has been returned. Once it is fulfilled it's done. Observables use publisher/subscriber model and whenever there are any changes, all subscribers are notified of them.
 
 ## Data Binding
+- `{{variable.name}}`: interpolation
 - `(event)`: Event Binding
 - `[property]`: property binding
 - `[(two-way)]`: two way binding
+
+## Routes
+- create a router module and configure your routes via array that holds route objects. 
+- pattern matches
+- you can use params via syntax like this /path/to/:param
+- query params are not declared in routes array but instead passed when navigating to it
+- subscribe to the current route and gain access to its params and query params by using ActivatedRoute
+- ```<router-outlet>``` tag acts as a placeholder for the views you want to present depending on your routes.
+- different ways to navigate routes: RouterLink (as attributes in your html elements) and using router service, ```router.navigate(['path','names'], routeExtra here like queryParams)```
+- you can also directly access the path/component via url ```<a routerLink="path/to/component">Link</a>```
+
+## Other Topics of Interest
+- How to pass data between components
+    - @Input (From parent to child)
+    - @Output: EventEmitter (from child to parent)
+    - @ViewChild: When you need access to child's HTML element itself
+    - Query Params/params with router
+    - utilizing service
+
+- Pipes
+    - We use pipes to transform data from one format to another, usually to the ones that can be displayed on the view 
+    - We used async pipe to unwrap data from observables, but there are many other pipes
+    - date, json, currency, etc..
+    - you can create your own as well!
+
+- JS events - how they travel
