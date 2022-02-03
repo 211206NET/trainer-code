@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  rrApiRootUrl: 'http://rrwebapi-prod.us-west-2.elasticbeanstalk.com/api'
 };

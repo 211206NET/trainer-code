@@ -70,3 +70,8 @@ Attribute directives doesn't change the structure of DOM. They add or modify att
 
 ### Promises, Observables
 Both of them represent async operations that result in some form of return. Promises are closed after the result has been returned. Once it is fulfilled it's done. Observables use publisher/subscriber model and whenever there are any changes, all subscribers are notified of them.
+
+## Data Binding
+- `(event)`: Event Binding
+- `[property]`: property binding
+- `[(two-way)]`: two way binding
