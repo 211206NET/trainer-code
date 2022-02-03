@@ -44,3 +44,30 @@ Components are decorated with @Component decorator that holds metadata about the
 
 ## Decorators
 Decorators "decorate" plain ts modules and classes or objects to tell angular what angular object it is. It gives additional angular related data to the framework such as type of angular object (ie. modules, component, services, etc) and additional data related to it. There are decorators like @Component, @NgModule, @Injectable, etc.
+
+## Services
+Services are... [angular-defn](https://angular.io/guide/architecture-services)
+
+We use services in angular to delegate certain functions that are used commonly across components, such as fetching data from the server, validation, etc. This helps keep component lean and only interested in user interaction.
+
+Create services with `ng generate service <service-name>`
+
+In order to make services part of dep injection, decorate these classes with @Injectable decorator.
+
+## Dependency Injection
+Angular provides a built in dep injection, where we can register objects with @Injectable decorator to its dep injection system.
+Declare your dependencies in your constructor of the class, and they _magically_ become available!
+
+## Directives
+Directives are classes that add additional behavior to elements. Two built in types: structural and attribute.
+
+### Structural directives
+Structural directives modify DOM as in, they add or remove html elements.
+Some examples of structural directives are `*ngIf`, `*ngFor`, `*ngSwitch` and more
+
+### Attribute directives
+Attribute directives doesn't change the structure of DOM,
+they modify, or add/change attributes - such as ngStyle. (They change or modify the element's appearance or behaviors)
+
+### Promises, Observables
+Both of them represent async operations that result in some form of return. Promises are closed after the result has been returned. Once it is fulfilled it's done. Observables use publisher/subscriber model and whenever there are any changes, all subscribers are notified of them.

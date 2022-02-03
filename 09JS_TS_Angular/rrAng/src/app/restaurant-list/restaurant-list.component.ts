@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Restaurant } from '../models/restaurant';
+import { RRApiService } from '../services/rrapi.service';
 
 @Component({
   selector: 'restaurant-list',
@@ -7,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestaurantListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService: RRApiService) { }
+
+  allResto: Restaurant[] = [];
 
   ngOnInit(): void {
-    console.log('hello world!');
+    this.apiService.getAllRestaurant().then((restoArray) => 
+    {
+      this.allResto = restoArray;
+    })
   }
 
 }
