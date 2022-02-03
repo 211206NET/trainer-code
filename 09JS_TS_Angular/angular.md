@@ -1,0 +1,46 @@
+# Angular / SPA (not that Spa)
+
+## SPA: single page application
+    - Single page application is an web application that receives all its html/css/js pages in the first request. In subsequent page changes, instead of loading a brand new page, it swaps out part of the page to create a new view. In that sense, there is only "one page" in the application
+
+### Pros?
+    - We only need to make one request to get all of our html/css/js assets
+    - code reuse
+    - subsequent "page loads" are quicker - json is much lighter to transport than html/css/js assets
+
+### Cons?
+    - Initial load can be slower because we're getting all our assets in one go
+    - initial learning curve/overhead with toolings
+
+## Angular
+- Angular is a popular FE framework that creates SPA's. 
+
+### Framework vs Library?
+- Both framework and library provides premade solutions to a common problems or tasks
+- Framework is more robust solution that contains many more tools for building applications or a complete product(?). Framework in general are more opinionated on how it wants to do certain things.
+- Library is lightweight solution that provides tools to solve the problem in hand or tackle a specific tasks. It's less "opinionated" as in, it's less concerned about "how" you should do certain things
+- it's somewhat similar to IDE vs code editor
+
+## Getting started with Angular
+- First, install angular globally in your machine
+    - `npm install -g @angular/cli`
+- To initialize an empty angular application
+    - `ng new <app-name>`
+- To build and run your application
+    - `ng serve`
+    - `ng serve --open`
+        - This opens up the browser at localhost:4200 for you
+
+## Modules
+Modules in Angular is similar to namespaces in C# program. It works to bundle various objects under one same roof for easy transportation. Components MUST be registered in one module to be able to be used. If a resident of a module require a service or component from a different module, then the module must be imported in the module.ts file before it can be used by residents on that module.
+In order to create a new module, `ng generate module <module-name>`
+
+## Components
+Components are a named, reusable pieces of view that is bundled with its own logic and styles.
+By default they come with 4 files: css, html, ts, spec.ts (testing file)
+Ideally, component should only be concerned with user interactions and it should be small and modular (this is our UI layer, so to speak)
+In order to create a new component: `ng generate (or g for short) component (c for short) <component-name>`
+Components are decorated with @Component decorator that holds metadata about the component, such as selector, templateURL, styleUrls, etc.
+
+## Decorators
+Decorators "decorate" plain ts modules and classes or objects to tell angular what angular object it is. It gives additional angular related data to the framework such as type of angular object (ie. modules, component, services, etc) and additional data related to it. There are decorators like @Component, @NgModule, @Injectable, etc.
