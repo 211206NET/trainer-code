@@ -87,6 +87,21 @@ Both of them represent async operations that result in some form of return. Prom
 - different ways to navigate routes: RouterLink (as attributes in your html elements) and using router service, ```router.navigate(['path','names'], routeExtra here like queryParams)```
 - you can also directly access the path/component via url ```<a routerLink="path/to/component">Link</a>```
 
+## Angular Testing
+To run tests, run `ng test`
+
+### TDD
+    Test Driven Development is a development style where we create test first to match our specs, and then we write code to pass those tests
+
+### Jasmine
+Jasmine is a default testing framework Angular ships with- it is a behavior driven development framework for testing JS code.
+We bundle up the tests in "describe" blocks and tests start with "it" followed by some kind of behavior
+[Jasmine](https://jasmine.github.io/)
+
+### Karma
+Karma is a test runner that helps us test codes across different web browsers. It also comes with bunch of other super useful config.
+[Karma](https://karma-runner.github.io/latest/index.html)
+
 ## Other Topics of Interest
 - How to pass data between components
     - @Input (From parent to child)

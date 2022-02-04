@@ -64,11 +64,11 @@ describe('RestaurantListComponent', () => {
 
   it('should have restaurant table', async () => {
     spyOn(service, 'getAllRestaurant').and.returnValue(Promise.resolve(fakeData));
-
+  
     fixture = TestBed.createComponent(RestaurantListComponent);
-    fixture.detectChanges();
-
     const compiled = fixture.nativeElement as HTMLElement;
+
+    fixture.detectChanges();
     await fixture.whenStable().then(() => 
     {
       fixture.detectChanges();
