@@ -8,6 +8,12 @@
             <li class="nav-item">
                 <a class="nav-link" routerLink="/create">Create</a>
             </li>
+            <li class="nav-item">
+                <app-auth-btn></app-auth-btn>
+            </li>
+            <li class="user-greeting" *ngIf="user">
+                Welcome {{user.nickname}}
+            </li>
         </ul>
     </div>
 </nav>
