@@ -7,6 +7,7 @@ import { Restaurant } from '../models/restaurant';
 describe('RestaurantListComponent', () => {
   let component: RestaurantListComponent;
   let fixture: ComponentFixture<RestaurantListComponent>;
+  let compiled: HTMLElement;
   let service: RRApiService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -19,8 +20,10 @@ describe('RestaurantListComponent', () => {
   });
 
   beforeEach(() => {
+    spyOn(service, 'getAllRestaurant').and.returnValue(Promise.resolve(fakeData));
     fixture = TestBed.createComponent(RestaurantListComponent);
     component = fixture.componentInstance;
+    compiled = fixture.nativeElement;
     fixture.detectChanges();
   });
 
@@ -48,12 +51,7 @@ describe('RestaurantListComponent', () => {
   });
 
   it('should call the rrApiService', async () => {
-    spyOn(service, 'getAllRestaurant').and.returnValue(Promise.resolve(fakeData));
 
-    fixture = TestBed.createComponent(RestaurantListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-    
     await fixture.whenStable().then(() => 
     {
       expect(service.getAllRestaurant).toHaveBeenCalled();
@@ -63,12 +61,6 @@ describe('RestaurantListComponent', () => {
   })
 
   it('should have restaurant table', async () => {
-    spyOn(service, 'getAllRestaurant').and.returnValue(Promise.resolve(fakeData));
-  
-    fixture = TestBed.createComponent(RestaurantListComponent);
-    const compiled = fixture.nativeElement as HTMLElement;
-
-    fixture.detectChanges();
     await fixture.whenStable().then(() => 
     {
       fixture.detectChanges();
@@ -77,8 +69,6 @@ describe('RestaurantListComponent', () => {
   });
 
   it('should display no resto tag if no resto', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-
     expect(compiled.querySelector('#no-resto')).toBeTruthy();
   })
 });
