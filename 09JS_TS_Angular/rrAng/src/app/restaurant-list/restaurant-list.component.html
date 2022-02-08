@@ -1,0 +1,42 @@
+<div class="container">
+    <h1>Restaurant Reviews</h1>
+    <a routerLink="/create">Create a new Restaurant</a>
+</div>
+<div class="container">
+    <table id="restaurant-table" class="table" *ngIf="allResto.length > 0 else noResto">
+        <thead class="table-header">
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Street Address
+                </th>
+                <th>
+                    City
+                </th>
+                <th>
+                    State
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- *ngFor is one of angular's structural directives -->
+            <tr *ngFor="let resto of allResto">
+                <td>{{resto.id}}</td>
+                <td>{{resto.name}}</td>
+                <td>{{resto.streetAddress}}</td>
+                <td>{{resto.city}}</td>
+                <td>{{resto.state}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #noResto>
+        <p id="no-resto">
+            No restaurants... why don't you go add one?
+        </p>
+    </ng-template>
+</div>

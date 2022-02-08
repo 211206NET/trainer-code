@@ -62,6 +62,7 @@ let populateRestaurantTable = function(dataArray: restaurant[]): void
         for(let resto of dataArray)
         {
             let row = tableHTMLElem.tBodies[0].insertRow()
+
             row.insertCell().textContent = resto.id.toString()
             row.insertCell().textContent = resto.name
             row.insertCell().textContent = resto.streetAddress
@@ -77,7 +78,7 @@ let getRestaurants = function(): void {
      * send an http request to our RR api to grab all restaurants
      * the first promise gets us the whole server response, with the status code and everything
      * We get the body in json format by calling .json() method on the response, 
-     * which also resturns a promise.
+     * which also returns a promise.
     */
     fetch(awsurl).then((res) => res.json(), (err) => console.log(err)).then((resJson: restaurant[]) => {
         //in here, now we have the body of the response.

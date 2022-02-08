@@ -1,0 +1,35 @@
+<div class="container">
+    <h1>Create a New Restaurant</h1>
+    <a routerLink="/">Back to Lists</a>
+</div>
+<div class="container">
+    <div class="row half-width">
+        <form (ngSubmit)="processForm(newRestoForm)" #newRestoForm="ngForm">
+            <div class="form-group">
+                <label for="resto-name">Restaurant Name:</label>
+                <input class="form-control" [(ngModel)]="restaurant.name" type="text" id="resto-name" name="resto-name" #name="ngModel" [placeholder]="placeholders.name" required>
+                <div *ngIf="newRestoForm.controls['resto-name']?.invalid && newRestoForm.controls['resto-name'].touched">
+                    <span *ngIf="newRestoForm.controls['resto-name'].errors?.['required']" class="help-inline">Name is required</span>  
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resto-street">Street Address:</label>
+                <input class="form-control" type="text" id="resto-street" name="resto-street" [(ngModel)]="restaurant.streetAddress" #streetAddress="ngModel" required>
+            </div>
+            <div class="form-group">
+                <label for="resto-city">City:</label>
+                <input class="form-control" type="text" id="resto-city" name="resto-city" [(ngModel)]="restaurant.city" #city="ngModel" required>
+            </div>
+            <div class="form-group">
+                <label for="resto-state">State:</label>
+                <input class="form-control" type="text" id="resto-state" name="resto-state" [(ngModel)]="restaurant.state" #state="ngModel" required>
+            </div>
+            <div class="form-group">
+                <div *ngIf="displayFormSubmitError">
+                    There's something wrong with your form
+                </div>
+                <input type="submit" value="Create" class="btn btn-success">
+            </div>
+        </form>
+    </div>
+</div>

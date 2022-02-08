@@ -5,6 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+        });
+});
+
 // Add services to the container.
 builder.Services.AddMemoryCache();
 builder.Services.AddControllers();
@@ -13,12 +22,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // builder.Services.AddDbContext<RRDBContext>(options => options.UseNpgsql(
     // builder.Configuration.GetConnectionString("PostgreRRDB")));
-builder.Services.AddDbContext<DL.Entities.RestaurantDBContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("RRDB")));
+builder.Services.AddDbContext<RRDBContext>(options => options.UseNpgsql(
+    builder.Configuration.GetConnectionString("PostgreRRDB")));
 //Registering our deps here for dependency injection
 //Different ways to add dependency
 //Scoped, Singleton, Transient
-builder.Services.AddScoped<IRepo, DBFirstRepo>();
+builder.Services.AddScoped<IRepo, EFRepo>();
 builder.Services.AddScoped<IBL, RRBL>();
 
 var app = builder.Build();
@@ -31,6 +40,9 @@ var app = builder.Build();
 //}
 
 app.UseHttpsRedirection();
+
+//insert CORS middleware here
+app.UseCors();
 
 app.UseAuthorization();
 

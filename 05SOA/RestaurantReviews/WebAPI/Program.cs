@@ -3,6 +3,15 @@ using BL;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowAllHeadersPolicy",
+        builder =>
+        {
+            builder.WithOrigins("*")
+                   .AllowAnyHeader();
+        });
+});
 // Add services to the container.
 builder.Services.AddMemoryCache();
 builder.Services.AddControllers();
@@ -26,6 +35,8 @@ var app = builder.Build();
 //}
 
 app.UseHttpsRedirection();
+
+app.UseCors("MyAllowAllHeadersPolicy");
 
 app.UseAuthorization();
 
