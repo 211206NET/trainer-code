@@ -4,10 +4,10 @@
 IAM user in AWS is a type of user, who is granted certain set of privileges to be able to interact with certain resources. We do it by assigning that user to a user group or assigning policies directly to the user. We shouldn't use root user to interact with EKS resources, so we're going to create an IAM user to manage the EKS cluster.
 
 ## VPC - Virtual Private Cloud
-This provides a virtual private cloud for us, so we can group resources under one roof and provide some sort of privacy. We need to store all the things we need for our cluster in one VPC
+This provides a virtual private cloud for us, so we can group resources under one roof and provide control access and security. We need to store all the things we need for our cluster in one VPC
 
 ## AWS CLI
-AWS cli is a terminal tool to interact with aws resources.
+AWS cli is a command line interface to interact with aws resources.
 [Get it here](https://aws.amazon.com/cli/)
 
 ## Steps
@@ -32,9 +32,9 @@ AWS cli is a terminal tool to interact with aws resources.
         - Check both credential types, programmatic access and password
         - Make sure to save the credential given to you at the end, because you won't be able to access this after you exit this page
 
-2. Create a new VPC with the template AWS provides for us, from CloudFormation
+2. Create a new VPC stack with the template AWS provides for us, from CloudFormation
     - use this template url: `https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-10-29/amazon-eks-vpc-private-subnets.yaml`
-    - make sure you give it some relevant name
+    - make sure you give it a relevant name
 
 3. Log out from root user and then log in as the newly created IAM user
 
@@ -43,7 +43,6 @@ AWS cli is a terminal tool to interact with aws resources.
         - Select AWS Service, and then EKS, and then EKS-Cluster
     2. Once you've created the role, come back to EKS cluster creation panel, and select that role after refreshing the dropdown.
     3. Rest of the options, you should be able to leave at default selections.
-    4. When satisfied, click create btn
 
 5. Once the cluster is up and running, go to cluster, and click configuration and then compute tab
 
@@ -72,9 +71,8 @@ such as `kubectl get nodes`
 11. In order to use ingress, we need to install and configure the ingress controller. It is easy to do by using Helm chart
 [Link to Ingress Controller using ngnix](https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx)
 
-    - * Make sure you have helm installed
+    - *Make sure you have helm installed
     - `helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`
     - `helm install ingress-nginx ingress-nginx/ingress-nginx`
 
-12. Wait a couple minutes for ingress to configure, but you should be able to do `kubectl get ingress --all-namespaces`  and get the external ip/url to get to your ingress controller.
-
+12. Wait a couple minutes for ingress to configure, but you should be able to do `kubectl get ingress --all-namespaces` and get the external ip/url to get to your ingress controller.
